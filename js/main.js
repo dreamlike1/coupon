@@ -1,4 +1,9 @@
+import { populateCountries } from './ui/countryUtils.js';
+import { setupEventListeners } from './eventHandlers/eventHandlers.js';
 import { setupSwitchButton } from './switch/switch.js';
+import { initializeTimezone } from './timezone/timezone.js';
+import { initializeDateSelector } from './calendar/calendar.js';
+import { initializeResultsVisibility } from './resultsVisibility/resultsVisibility.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const defaultServiceType = 'expressPaid';
@@ -13,5 +18,49 @@ document.addEventListener('DOMContentLoaded', () => {
         const formattedDate = formatDateToWorded(today);
         document.getElementById('couponDate').value = formattedDate;
     }
+
+    function updatePopups() {
+        const serviceType = $('#serviceType').val();
+        const country = $('#countrySelect').val();
+
+        // Remove existing popups
+        $('.result-field').popup('destroy');
+
+        // Show popups only if service type is 'standard' and country is 'united states'
+        if (serviceType === 'standard' && country === 'United States') {
+            $('.result-field').popup({
+                on: 'hover',
+                varation: 'multiline',
+                position: 'right center',
+                content: function() {
+                    const id = $(this).attr('id');
+                    return id === 'result' ? 'test1' : 'test2';
+                }
+            });
+        }
+    }
+
+    // Initialize Semantic UI dropdowns
+    $('.ui.dropdown').dropdown({
+        onChange: function(value, text, $selectedItem) {
+            updatePopups();
+        }
+    });
+
+    // Initialize Semantic UI popups
+    updatePopups(); // Call initially to set up based on default values
+
+    populateCountries(defaultServiceType).then(() => {
+        $('#countrySelect').dropdown('refresh');
+    }).catch(error => {
+        console.error('Error populating countries:', error);
+    });
+
+    setupEventListeners();
+    setupSwitchButton();
+    initializeTimezone();
+    initializeDateSelector();
+    initializeResultsVisibility();
+
     setTodayDate();
 });
