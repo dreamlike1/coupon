@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coupon Expiry Form</title>
+    <link rel="icon" href="assets/favico.png" type="image/x-icon"> <!-- Favicon link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui/dist/semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui-calendar/dist/calendar.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="ui form">
+            <div class="ui header">Coupon Expiry</div>
+            <div class="field">
+                <div class="ui inverted calendar" id="type_calendar" data-type="date">
+                    <div class="ui input right icon">
+                        <i class="inverted calendar icon"></i>
+                        <input type="text" id="expiry-date" placeholder="Select Date">
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <input type="text" id="text-input" placeholder="Add Days" value="91">
+            </div>
+            <div class="field">
+                <div class="ui checkbox custom-checkbox">
+                    <input type="checkbox" id="remove-day">
+                    <label for="remove-day">Remove extra day (to be shared with user)</label>
+                </div>
+            </div>
+            <button class="ui button primary">Calculate</button>
+            <div class="field result-field">
+                <input type="text" id="read-only-field" readonly>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui/dist/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui-calendar/dist/calendar.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
